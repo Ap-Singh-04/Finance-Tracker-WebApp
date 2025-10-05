@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aps Finance Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script> <!-- SheetJS For Excel file handling -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script><!-- For Charting Chart.Js-->
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+              <h1>Your Personal Finance Dashboard</h1>
+              <div class="small">
+                Upload an Excel (.xlsx/.xls) file to visualize income, expenses, savings and more.
+              </div>
+            </div>
+            <div>
+              <button class="btn" id="downloadSample">Download Sample File</button>
+            </div>
+        </header>
+
+        <!--FiLe UplOad SecTion-->
+        <section class="upload-card" aria-labelledby="upload-heading">
+
+            <h2 id="upload-heading">
+                Upload your Excel file
+            </h2>
+
+            <div class="small">
+              Supported columns: <strong>Date, Type, Category, Amount</strong> (case-insensitive).
+              If headings differ you will be asked to Map columns.
+            </div>
+      
+            <div class="upload-actions">
+              <label class="btn" for="fileInput">
+                Choose Excel File
+              </label>
+
+              <input type="file" id="fileInput" accept=".xlsx,.xls" />
+
+              <button class="btn secondary" id="useSample">
+                Use Sample Data
+              </button>
+              
+            </div>
+      
+            <div id="status" class="status">No file selected</div>
+            <div id="skippedRows" class="status"></div>
+        </section>
+
+        <!-- MappIng DiffeRent Rows SecTion -->
+        <div id="mappingModal" class="modal hidden" role="dialog" aria-modal="true">
+            <div class="modal-body">
+            <h3>Map your columns</h3>
+            <div class="small">Select which columns in your file correspond to the required fields.</div>
+            <form id="mappingForm">
+                <label>Date column
+                <select id="dateCol"></select>
+                </label>
+                <label>Type column (Income/Expense)
+                <select id="typeCol"></select>
+                </label>
+                <label>Category column
+                <select id="catCol"></select>
+                </label>
+                <label>Amount column
+                <select id="amtCol"></select>
+                </label>
+                <div class="row">
+                <div class="col"><button class="btn" type="submit">Save Mapping</button></div>
+                <div class="col"><button class="btn secondary" id="cancelMapping" type="button">Cancel</button></div>
+                </div>
+            </form>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <section class="summary" id="summarySection">
+            <div class="card" id="incomeCard"><h3>Total Income</h3>
+              <p id="totalIncome">₹0</p>
+            </div>
+            <div class="card" id="expenseCard"><h3>Total Expense</h3>
+              <p id="totalExpense">₹0</p>
+            </div>
+            <div class="card" id="balanceCard"><h3>Net Balance</h3>
+              <p id="netBalance">₹0</p>
+            </div>
+            <div class="card" id="profitLossCard"><h3>Profit / Loss</h3>
+              <p id="profitLoss">₹0</p>
+            </div>
+            <div class="card" id="savingsCard"><h3>Savings</h3>
+              <p id="savings">₹0</p>
+            </div>
+            <div class="card" id="percentCard"><h3>Expense % of Income</h3>
+              <p id="expensePct">0%</p>
+            </div>
+        </section>
+
+         <!-- Charts SecTion -->
+        <section class="charts">
+            <div class="chart-container"><canvas id="pieChart" width="400" height="300" aria-label="Expenses and savings pie chart">
+            </canvas></div>
+            <div class="chart-container"><canvas id="barChart" width="400" height="300" aria-label="Category expense bar chart">
+            </canvas></div>
+        </section>
+
+        <!-- TranSactions SecTion -->
+        <section class="transactions" id="transactionsSection">
+            <h3>Transactions</h3>
+            <table id="tranTable">
+                <thead>
+                    <tr><th>Sr No</th><th>Date</th><th>Type</th><th>Category</th><th>Amount</th></tr>
+                </thead>
+                <tbody>
+                    <!-- To DisPlay Transactions -->
+                </tbody>
+            </table>
+        </section>
+  
+        <footer> &copy; 2025 Aps Finance Tracker.
+          Built with JavaScript . SheetJS . Chart.js </footer>
+    </div>
+  
+    <script src="script.js"></script>
+
+</body>
+</html>
